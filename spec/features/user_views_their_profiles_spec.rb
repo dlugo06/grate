@@ -1,8 +1,12 @@
 require 'rails_helper'
 
 RSpec.feature "A user views their profiles", type: :feature do
-  let! (:user) do #the "!" will create it on the spot
-    User.create(name: "Diego Lugo", email: "diego@example.com")
+  let!(:code_school) do
+    CodeSchool.create(name: "Wyncode")
+  end
+
+  let!(:user) do #the "!" will create :user on the spot
+    User.create(name: "Diego Lugo", email: "diego@example.com", code_school: code_school)
   end
 
   before do
@@ -18,6 +22,7 @@ RSpec.feature "A user views their profiles", type: :feature do
   end
 
   it "dislays their code school" do
+    save_and_open_page
     expect(page).to have_content user.code_school.name
   end
 end
